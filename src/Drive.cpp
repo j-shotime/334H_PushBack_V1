@@ -11,6 +11,47 @@ double leftSpeed;
 double rightSpeed;
 double strafeSpeed;
 
+#pragma region Controls
+
+void Set(int index, double power)
+{
+    motors[index].spin(fwd, PercentToMillivolts(power), voltageUnits::mV);
+}
+
+void SetValues(double left, double right, double strafe)
+{
+    leftSpeed = left;
+    rightSpeed = right;
+    strafeSpeed = strafe;
+}
+
+#pragma endregion Controls
+
+#pragma region SetDrives
+
+void SetTankDrive(double left, double right)
+{
+    Set(LEFT, left);
+    Set(RIGHT, right);
+}
+
+void SetHDrive(double left, double right, double strafe)
+{
+    Set(LEFT, left);
+    Set(RIGHT, right);
+    Set(STRAFE, strafe);
+}
+
+void SetXDrive(double left, double right, double strafe)
+{
+    Set(FRONT_LEFT, left+strafe);
+    Set(BACK_LEFT, left-strafe);
+    Set(FRONT_RIGHT, right-strafe);
+    Set(BACK_RIGHT, right+strafe);
+}
+
+#pragma endregion SetDrives
+
 void SetupTankDrive(int InertialPort, motor_group &Left, motor_group &Right)
 {
     DriveType = DriveTypes::TankDrive;
@@ -74,44 +115,3 @@ void SetStrafe(double power)
 {
     SetDrive(leftSpeed, rightSpeed ,power);
 }
-
-#pragma region Controls
-
-void Set(int index, double power)
-{
-    motors[index].spin(fwd, PercentToMillivolts(power), voltageUnits::mV);
-}
-
-void SetValues(double left, double right, double strafe)
-{
-    leftSpeed = left;
-    rightSpeed = right;
-    strafeSpeed = strafe;
-}
-
-#pragma endregion Controls
-
-#pragma region SetDrives
-
-void SetTankDrive(double left, double right)
-{
-    Set(LEFT, left);
-    Set(RIGHT, right);
-}
-
-void SetHDrive(double left, double right, double strafe)
-{
-    Set(LEFT, left);
-    Set(RIGHT, right);
-    Set(STRAFE, strafe);
-}
-
-void SetXDrive(double left, double right, double strafe)
-{
-    Set(FRONT_LEFT, left+strafe);
-    Set(BACK_LEFT, left-strafe);
-    Set(FRONT_RIGHT, right-strafe);
-    Set(BACK_RIGHT, right+strafe);
-}
-
-#pragma endregion SetDrives
