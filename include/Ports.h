@@ -2,6 +2,7 @@
 
 #include "everything.h"
 
+extern brain Brain;
 extern controller Controller;
 
 extern competition Competition;
@@ -17,3 +18,5 @@ extern motor_group rightMotors;
 extern motor strafe1;
 extern motor_group strafe;
 extern motor intake;
+extern pneumatics matchLoader;
+extern pneumatics indexer;
