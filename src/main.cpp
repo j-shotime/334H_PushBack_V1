@@ -1,7 +1,11 @@
 #include "everything.h"
 
+#define INTAKE() intake.spin(fwd,-12000, voltageUnits::mV)
+#define OUTTAKE() intake.spin(fwd, 12000, voltageUnits::mV)
+#define STOP_INTAKE() intake.spin(fwd, 0, voltageUnits::mV)
+
 autonType autontype = autonType::blue;
-int autonNumber = 1;
+int autonNumber = 3;
 
 void pre_auton(void)
 {
@@ -124,6 +128,8 @@ void pre_auton(void)
 
 void autonomous(void)
 {
+  
+  Brake(brakeType::hold);
   // isDriver = false;
   // hasShortBuzz = false;
   // hasLongBuzz = false;
@@ -142,9 +148,7 @@ void autonomous(void)
 
     if (autonNumber == 1)
     {
-      Brake(brakeType::hold);
-      Controller.Screen.print("1");
-      Shift(0, 100, 0.00, 2, 0.5, 45.5, 50, 0.00, 24, 0.9);
+      Shift(0, 100, 0.00, 2, 0.5, 45.5, 90, 0.00, 24, 0.7);
       matchLoader.set(!matchLoader.value());
       RightSwing(90, 40, 0, 45);
       Shift(0, 100, 0.00, 2, 0.5, 12.5, 100, 30, 24, 0.8);
@@ -166,8 +170,39 @@ void autonomous(void)
       Shift(0, 100, 0.00, 2, 0.5, -29, 100, 0.00, 24, 0.8);
       indexer.open();
     }
-    else if (autonNumber == 2);
-    else if (autonNumber == 3);
+    else if (autonNumber == 2)
+    {
+      Shift(0, 100, 0.00, 2, 0.5, 47, 90, 0.00, 24, 0.8);
+      matchLoader.set(!matchLoader.value());
+      LeftSwing(-90, 40, 0, 45);
+      Shift(0, 100, 0, 2, 0.5, 12.5, 100, 30, 24, 0.8);
+      SetDrive(50, 50, 20);
+      intake.spin(fwd, -12000, voltageUnits::mV);
+      wait(0.5, sec);
+      SetDrive(-10, -10, -20);
+      wait(0.1, sec);
+      SetDrive(50, 50, 20);
+      wait(0.1, sec);
+      SetDrive(-10, -10, -20);
+      wait(0.3, sec);
+      SetDrive(50, 50, 20);
+      wait(0.1, sec);
+      SetDrive(-10, -10, -20);
+      wait(0.3, sec);
+      SetDrive(50, 50, 20);
+      wait(0.5, sec);
+      Shift(0, 100, 0.00, 2, 0.5, -29, 100, 0.00, 24, 0.8);
+      indexer.open();
+    }
+    else if (autonNumber == 3)
+    {
+      Shift(10, 100, 0, 2, 0.5, 18, 100, 30, 24, 0.8);
+      intake.spin(fwd, -12000, voltageUnits::mV);
+      RightSwing(-45, 40, 0, 45);
+      Shift(5, 100, 0.00, 2, 0.5, 22, 100, 30, 22, 0.8);
+      wait(0.5, sec);
+      intake.spin(fwd, 12000, voltageUnits::mV);
+    }
     else if (autonNumber == 4);
     else if (autonNumber == 5);
     else if (autonNumber == 6);
