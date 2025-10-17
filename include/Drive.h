@@ -53,6 +53,10 @@ void RightSwing(double angle, double MaxSpeed, double minSpeed, double decelerat
 
 void LeftSwing(double angle, double MaxSpeed, double minSpeed, double decelerateAngle);
 
+void Turn(double angle, double MaxSpeed, double minSpeed, double decelerateAngle);
+
 void Brake();
 
 void Brake(brakeType mode);
+
+double Rotation();

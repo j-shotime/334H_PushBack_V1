@@ -50,6 +50,11 @@ double MinSpeed(double speed, double minSpeed)
     return speed;
 }
 
+double Rotation()
+{
+    return Inertial.rotation();
+}
+
 // Weighted average between two values
 double weightedAverage(double a, double b, double weight)
 {
@@ -169,7 +174,7 @@ void SetupTankDrive(int InertialPort, double inputGear, double outputGear, doubl
     forwardRatio = (inputGear / outputGear) * wheelDiameter * M_PI;
     motors[LEFT] = Left;
     motors[RIGHT] = Right;
-    Inertial.resetRotation();
+    Inertial.calibrate();
 }
 
 // Configure H drive and initialize inertial sensor and ratios
@@ -182,7 +187,7 @@ void SetupHDrive(int InertialPort, double inputGear, double outputGear, double w
     motors[LEFT] = Left;
     motors[RIGHT] = Right;
     motors[STRAFE] = Strafe;
-    Inertial.resetRotation();
+    Inertial.calibrate();
 }
 
 // Configure X drive and initialize inertial sensor and ratios
@@ -195,7 +200,7 @@ void SetupXDrive(int InertialPort, double inputGear, double outputGear, double w
     motors[BACK_LEFT] = BackLeft;
     motors[FRONT_RIGHT] = FrontRight;
     motors[BACK_RIGHT] = BackRight;
-    Inertial.resetRotation();
+    Inertial.calibrate();
 }
 
 #pragma endregion DriveSetup
@@ -279,11 +284,11 @@ void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double Strafe
     // Initial speed calculations
     double strafeSpeed = motorRAJ(StrafeError, MaxStrafe, GetStrafeSpeed(), StrafeDecelerationDistance, MinStrafeSpeed);
     double forwardSpeed = motorRAJ(ForwardError, MaxForward, GetForwardSpeed(), ForwardDecelerationDistance, MinForwardSpeed);
-
+    double correction = 0;
     // Calculate angle for heading correction
     double angle = abs(atan2(Strafe, Forward));
-    if (angle > 0.5)
-        angle = 0.5;
+    if (angle < 1)
+        angle = 1;
 
     // Apply weighted average after MinSpeed
     strafeSpeed = weightedAverage(strafeSpeed, GetStrafeSpeed(), StrafeAcceleration);
@@ -305,7 +310,9 @@ void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double Strafe
         forwardSpeed = weightedAverage(forwardSpeed, GetForwardSpeed(), ForwardAcceleration);
 
         // Apply heading correction and set drive
-        SetDrive(forwardSpeed-(Inertial.rotation(rotationUnits::deg)-targetAngle)*angle, forwardSpeed+(Inertial.rotation(rotationUnits::deg)-targetAngle)*angle, strafeSpeed);
+        correction = (Inertial.rotation(rotationUnits::deg) - targetAngle) * angle * 2;
+
+        SetDrive(forwardSpeed-correction, forwardSpeed+correction, strafeSpeed);
     }
     SetDrive(0, 0, 0);
 }
@@ -352,6 +359,18 @@ void RightSwing(double angle, double MaxSpeed, double minSpeed,double decelerate
     SetDrive(0, 0, 0);
 }
 
+void Turn(double angle, double MaxSpeed, double minSpeed,double decelerateAngle)
+{
+    targetAngle += angle;
+    while (abs(Inertial.rotation(rotationUnits::deg)-targetAngle) > 5)
+    {
+        double speed = MinSpeed(Clip(RAJ(Inertial.rotation(rotationUnits::deg)-targetAngle, 1/decelerateAngle)*100, -MaxSpeed, MaxSpeed), minSpeed);
+        Controller.Screen.newLine();
+        Controller.Screen.print("%f", abs(Inertial.rotation(rotationUnits::deg)-targetAngle));
+        SetDrive(-speed, speed, 0);
+    }
+    SetDrive(0, 0, 0);
+}
 // Placeholder for start of a shift sequence (implement as needed)
 void StartShift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double StrafeDecelerationDistance, double StrafeAcceleration, double StrafeStop, double Forward, double MaxForward, double MinForwardSpeed, double ForwardDecelerationDistance, double ForwardAcceleration, double ForwardStop)
 {
