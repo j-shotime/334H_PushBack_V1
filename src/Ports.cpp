@@ -16,4 +16,5 @@ motor_group strafe = motor_group(strafe1);
 motor intake = motor(PORT12, BLUE, false);
 pneumatics descore = pneumatics(Brain.ThreeWirePort.A);
 pneumatics indexer = pneumatics(Brain.ThreeWirePort.B);
-pneumatics matchLoader = pneumatics(Brain.ThreeWirePort.C);
+pneumatics matchLoader = pneumatics(Brain.ThreeWirePort.G);
+inertial Inertial(0);

@@ -21,3 +21,4 @@ extern motor intake;
 extern pneumatics descore;
 extern pneumatics indexer;
 extern pneumatics matchLoader;
+extern inertial Inertial;

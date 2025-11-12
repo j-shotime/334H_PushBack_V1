@@ -8,7 +8,6 @@
 motor_group motors[4];
 
 // Inertial sensor for heading/rotation
-inertial Inertial(0);
 
 // Enum to track current drive type (Tank, H, X)
 DriveTypes DriveType;
@@ -286,7 +285,7 @@ void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double Strafe
     double forwardSpeed = motorRAJ(ForwardError, MaxForward, GetForwardSpeed(), ForwardDecelerationDistance, MinForwardSpeed);
     double correction = 0;
     // Calculate angle for heading correction
-    double angle = abs(atan2(Strafe, Forward));
+    double angle = abs(atan2(abs(Strafe), abs(Forward)));
     if (angle < 1)
         angle = 1;
 

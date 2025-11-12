@@ -30,6 +30,8 @@ void pre_auton(void)
     // Prevent main from exiting with an infinite loop.
     while (true)
     {
+        Controller.Screen.newLine();
+        Controller.Screen.print(Inertial.rotation(degrees));
         Brain.Screen.clearScreen();
         Brain.Screen.setFillColor(purple);
         Brain.Screen.drawRectangle(11, 10, 146, 35);
@@ -190,7 +192,7 @@ void autonomous(void)
         {
             Shift(0, 100, 0.00, 2, 0.5, 47, 90, 0.00, 24, 0.8);
             descore.set(!descore.value());
-            LeftSwing(-90, 40, 0, 45);
+            //LeftSwing(-90, 40, 0, 45);
             Shift(0, 100, 0, 2, 0.5, 12.5, 100, 30, 24, 0.8);
             SetDrive(50, 50, 20);
             intake.spin(fwd, -12000, voltageUnits::mV);
@@ -254,39 +256,39 @@ void autonomous(void)
         }
         else if (autonNumber == 6)
         {
-            Shift(0, 100, 0, 2, 0.5, 36, 60, 10, 24, 0.8);
-            Turn(90, 60, 10, 180);
-            descore.set(!descore.value());
-            Shift(0, 100, 0, 2, 0.5, 3, 60, 25, 24, 0.8);
-            SetDrive(50, 50, 0);
-            intakeIn();
-            wait(0.5, sec);
-            SetDrive(-10, -10, 0);
-            wait(0.1, sec);
-            SetDrive(50, 50, 0);
-            wait(0.1, sec);
-            SetDrive(-10, -10, 0);
-            wait(0.1, sec);
-            SetDrive(50, 50, 0);
-            wait(0.5, sec);
-            SetDrive(-30, -30, 0);
-            //antidescore.set(!antidescore.value());
-            descore.set(!descore.value());
-            wait(3, sec);
-            SetDrive(0,0,0);
-            indexer.open();
+            Shift(0, 100, 0, 2, 0.5, 10, 60, 10, 24, 0.8);
         }
         else if (autonNumber == 7)
         {
-            Shift(-6, 100, 0, 2, 0.5, 38, 40, 10, 24, 0.8);
+            Shift(-5.2, 100, 0, 2, 0.5, 38, 40, 10, 24, 0.8);
             intakeOut(0.6);
-            wait(0.5, sec);
-            Shift(6, 100, 0, 2, 0.5, -24, 40, 10, 24, 0.8);
+            wait(1, sec);
+            Shift(0, 40, 0, 2, 0.5, -35, 40, 0, 12, 0.8);
+            Shift(11, 100, 0, 2, 0.5, 0, 40, 0, 12, 0.8);
             intakeIn();
-            Shift(6, 100, 0, 2, 0.5, 20, 40, 10, 24, 0.8);
+            Shift(0, 100, 0, 2, 0.5, 38, 40, 10, 24, 0.8);
+            Shift(0, 100, 0, 2, 0.5, -30, 40, 10, 24, 0.8);
+            Shift(16, 100, 0, 2, 0.5, 0, 40, 0, 12, 0.8);
+            Turn(180, 20, 10, 90);
+            SetDrive(-30,-30);
+            wait(0.5, sec);
+            indexer.open();
         }
         else if (autonNumber == 8)
-            ;
+        {
+            Shift(5.2, 100, 0, 2, 0.5, 38, 40, 10, 24, 0.8);
+            wait(1, sec);
+            Shift(0, 40, 0, 2, 0.5, -35, 40, 0, 12, 0.8);
+            Shift(-11, 100, 0, 2, 0.5, 0, 40, 0, 12, 0.8);
+            intakeIn();
+            Shift(0, 100, 0, 2, 0.5, 38, 40, 10, 24, 0.8);
+            Shift(0, 100, 0, 2, 0.5, -30, 40, 10, 24, 0.8);
+            Shift(-16, 100, 0, 2, 0.5, 0, 40, 0, 12, 0.8);
+            Turn(-180, 20, 10, 90);
+            SetDrive(-30,-30);
+            wait(0.5, sec);
+            indexer.open();
+        }
     }
 }
 
@@ -306,13 +308,17 @@ void usercontrol(void)
             descore.set(!descore.value());
             if(thing) descore.set(descore.value());
         }
+        if(Controller.ButtonDown.PRESSED)
+        {
+            matchLoader.set(!matchLoader.value());
+        }
         if (Controller.ButtonL2.pressing())
             indexer.open();
         else
             indexer.close();
-        if(Controller.ButtonB.PRESSED)
+        if(Controller.ButtonB.pressing())
         {
-            matchLoader.set(!matchLoader.value());
+            intakeOut(0.5);
         }
         wait(20, msec);
     }
@@ -326,7 +332,7 @@ int main()
     pre_auton();
 
     while (true)
-    {
+    {      
         wait(100, msec);
     }
     //vexMotorPwmSet(,);
