@@ -21,7 +21,7 @@ inline void intakeOut(double power = 1.0) {
 
 bool thing = false;
 autonType autontype = autonType::blue;
-int autonNumber = 7;
+int autonNumber = 1;
 
 void pre_auton(void)
 {
@@ -159,135 +159,115 @@ void autonomous(void)
     // 	tM = -1;
     if (autontype == autonType::skills)
     {
-        // skills();
+        Shift(-10, 100, 20, 5, 1, 27, 100, 10, 18, 0.8);
+        LeftSwing(90, 50, 10, 90);
+        matchLoader.open();
+        wait(500, msec);
+        SetDrive(60, 60, 0);
+        wait(1000, msec);
+        SetDrive(-50, -50, -6.5);
+        wait(800, msec);
+        intakeIn();
+        indexer.open();
+        wait(2500, msec);
+        indexer.close();
+        matchLoader.close();
+        LeftSwing(135, 50, 10, 24);
+        Shift(-2, 100, 20, 5, 1, 42, 100, 10, 24, 0.8);
+        intakeOut();
+        wait(1000, msec);
+        intakeStop();
+        Shift(0, 100, 20, 5, 1, -10, 100, 10, 24, 0.8);
+        Turn(-45, 50, 10, 24);
+        intakeIn();
+        Shift(0, 100, 20, 5, 1, 48, 100, 10, 24, 0.8);
+        Turn(-45, 50, 10, 24);
+        indexer.open();
+        wait(1000, msec);
+        indexer.close();
+        Shift(0, 100, 20, 5, 1, 48, 100, 10, 18, 0.8);
+        RightSwing(-45, 50, 10, 90);
+        matchLoader.open();
+        wait(500, msec);
+        SetDrive(-50, -50, 6.5);
+        wait(800, msec);
+        intakeIn();
+        indexer.open();
     }
     else
     {
 
         if (autonNumber == 1)
         {
-            Shift(0, 100, 0.00, 2, 0.5, 45.5, 90, 0.00, 24, 0.7);
-            descore.set(!descore.value());
-            RightSwing(90, 40, 0, 45);
-            Shift(0, 100, 0.00, 2, 0.5, 12.5, 100, 30, 24, 0.8);
-            SetDrive(50, 50, 20);
-            intake.spin(fwd, -12000, voltageUnits::mV);
-            wait(0.5, sec);
-            SetDrive(-10, -10, -20);
-            wait(0.1, sec);
-            SetDrive(50, 50, 20);
-            wait(0.1, sec);
-            SetDrive(-10, -10, -20);
-            wait(0.3, sec);
-            SetDrive(50, 50, 20);
-            wait(0.1, sec);
-            SetDrive(-10, -10, -20);
-            wait(0.3, sec);
-            SetDrive(50, 50, 20);
-            wait(0.5, sec);
-            Shift(0, 100, 0.00, 2, 0.5, -29, 100, 0.00, 24, 0.8);
+            Shift(-10, 100, 20, 5, 1, 27, 100, 10, 18, 0.8);
+            LeftSwing(90, 50, 10, 90);
+            matchLoader.open();
+            wait(500, msec);
+            SetDrive(60, 60, 0);
+            wait(1000, msec);
+            SetDrive(-50, -50, -6.5);
+            wait(800, msec);
+            intakeIn();
+            indexer.open();
+            wait(2500, msec);
+            indexer.close();
+            matchLoader.close();
+            LeftSwing(135, 50, 10, 24);
+            Shift(-2, 100, 20, 5, 1, 42, 100, 10, 24, 0.8);
+            intakeOut();
+            wait(1000, msec);
+            intakeStop();
+            Shift(0, 100, 20, 5, 1, -10, 100, 10, 24, 0.8);
+            Turn(-45, 50, 10, 24);
+            intakeIn();
+            Shift(0, 100, 20, 5, 1, 48, 100, 10, 24, 0.8);
+            Turn(-45, 50, 10, 24);
             indexer.open();
         }
         else if (autonNumber == 2)
         {
-            Shift(0, 100, 0.00, 2, 0.5, 47, 90, 0.00, 24, 0.8);
-            descore.set(!descore.value());
-            //LeftSwing(-90, 40, 0, 45);
-            Shift(0, 100, 0, 2, 0.5, 12.5, 100, 30, 24, 0.8);
-            SetDrive(50, 50, 20);
-            intake.spin(fwd, -12000, voltageUnits::mV);
-            wait(0.5, sec);
-            SetDrive(-10, -10, -20);
-            wait(0.1, sec);
-            SetDrive(50, 50, 20);
-            wait(0.1, sec);
-            SetDrive(-10, -10, -20);
-            wait(0.3, sec);
-            SetDrive(50, 50, 20);
-            wait(0.1, sec);
-            SetDrive(-10, -10, -20);
-            wait(0.3, sec);
-            SetDrive(50, 50, 20);
-            wait(0.5, sec);
-            Shift(0, 100, 0.00, 2, 0.5, -29, 100, 0.00, 24, 0.8);
+            Shift(10, 100, 20, 5, 1, 27, 100, 10, 18, 0.8);
+            RightSwing(-90, 50, 10, 90);
+            matchLoader.open();
+            wait(500, msec);
+            SetDrive(60, 60, 0);
+            wait(1000, msec);
+            SetDrive(-50, -50, 6.5);
+            wait(800, msec);
+            intakeIn();
             indexer.open();
+            wait(2500, msec);
+            indexer.close();
+            matchLoader.close();
+            RightSwing(-135, 50, 10, 24);
+            Shift(2, 100, 15, 5, 1, 42, 100, 10, 24, 0.8);
+            Turn(180, 50, 10, 24);
+            matchLoader.open();
+            wait(1000, msec);
+            RightSwing(-135, 50, 10, 24);
+            intakeIn();
+            Shift(0, 100, 20, 5, 1, 18, 100, 10, 24, 0.8);
+            Turn(-135, 50, 10, 24);
+            Shift(0, 100, 20, 5, 1, 10, 100, 10, 24, 0.8);
+            intakeOut();
         }
         else if (autonNumber == 3)
         {
-            intake.spin(fwd, -12000, voltageUnits::mV);
-            Shift(10, 100, 0, 2, 0.5, 30, 100, 30, 24, 0.8);
-            Turn(-45, 60, 10, 180);
-            Shift(-4, 100, 0.00, 2, 0.5, 20, 100, 30, 22, 0.8);
-            wait(0.5, sec);
-            intake.spin(fwd, 12000, voltageUnits::mV);
         }
         else if (autonNumber == 4)
         {
-            intake.spin(fwd, -12000, voltageUnits::mV);
-            Shift(-10, 100, 0, 2, 0.5, 30, 100, 30, 24, 0.8);
-            RightSwing(90, 60, 10, 90);
-            Shift(9, 100, 0.00, 2, 0.5, -12, 100, 30, 22, 0.8);
-            RightSwing(90, 60, 10, 90);
         }
         else if (autonNumber == 5)
         {
-            Shift(0, 100, 0, 2, 0.5, 36, 60, 10, 24, 0.8);
-            Turn(-90, 60, 10, 180);
-            descore.set(!descore.value());
-            Shift(0, 100, 0, 2, 0.5, 3, 60, 25, 24, 0.8);
-            SetDrive(50, 50, 0);
-            intakeIn();
-            wait(0.5, sec);
-            SetDrive(-10, -10, 0);
-            wait(0.1, sec);
-            SetDrive(50, 50, 0);
-            wait(0.1, sec);
-            SetDrive(-10, -10, 0);
-            wait(0.1, sec);
-            SetDrive(50, 50, 0);
-            wait(0.5, sec);
-            SetDrive(-30, -30, 0);
-            //antidescore.set(!antidescore.value());
-            descore.set(!descore.value());
-            wait(3, sec);
-            SetDrive(0,0,0);
-            indexer.open();
-            //Shift(1, 100, 0, 2, 0.5, -30, 100, 10, 24, 0.8);
         }
         else if (autonNumber == 6)
         {
-            Shift(0, 100, 0, 2, 0.5, 10, 60, 10, 24, 0.8);
         }
         else if (autonNumber == 7)
         {
-            Shift(-5.2, 100, 0, 2, 0.5, 38, 40, 10, 24, 0.8);
-            intakeOut(0.6);
-            wait(1, sec);
-            Shift(0, 40, 0, 2, 0.5, -35, 40, 0, 12, 0.8);
-            Shift(11, 100, 0, 2, 0.5, 0, 40, 0, 12, 0.8);
-            intakeIn();
-            Shift(0, 100, 0, 2, 0.5, 38, 40, 10, 24, 0.8);
-            Shift(0, 100, 0, 2, 0.5, -30, 40, 10, 24, 0.8);
-            Shift(16, 100, 0, 2, 0.5, 0, 40, 0, 12, 0.8);
-            Turn(180, 20, 10, 90);
-            SetDrive(-30,-30);
-            wait(0.5, sec);
-            indexer.open();
         }
         else if (autonNumber == 8)
         {
-            Shift(5.2, 100, 0, 2, 0.5, 38, 40, 10, 24, 0.8);
-            wait(1, sec);
-            Shift(0, 40, 0, 2, 0.5, -35, 40, 0, 12, 0.8);
-            Shift(-11, 100, 0, 2, 0.5, 0, 40, 0, 12, 0.8);
-            intakeIn();
-            Shift(0, 100, 0, 2, 0.5, 38, 40, 10, 24, 0.8);
-            Shift(0, 100, 0, 2, 0.5, -30, 40, 10, 24, 0.8);
-            Shift(-16, 100, 0, 2, 0.5, 0, 40, 0, 12, 0.8);
-            Turn(-180, 20, 10, 90);
-            SetDrive(-30,-30);
-            wait(0.5, sec);
-            indexer.open();
         }
     }
 }
