@@ -292,7 +292,7 @@ void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double Strafe
     // Apply weighted average after MinSpeed
     strafeSpeed = weightedAverage(strafeSpeed, GetStrafeSpeed(), StrafeAcceleration);
     forwardSpeed = weightedAverage(forwardSpeed, GetForwardSpeed(), ForwardAcceleration);
-
+    int time=0;
     // Loop until both errors are within threshold
     while (abs(StrafeError) > 1 || abs(ForwardError) > 1)
     {
@@ -312,6 +312,10 @@ void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double Strafe
         correction = (Inertial.rotation(rotationUnits::deg) - targetAngle) * angle * 2;
 
         SetDrive(forwardSpeed-correction, forwardSpeed+correction, strafeSpeed);
+        wait(1,msec);
+        
+        if(abs(GetStrafeSpeed()+GetForwardSpeed())<MinForwardSpeed+MinStrafeSpeed)time++;
+        if(time>500) break;
     }
     SetDrive(0, 0, 0);
 }
