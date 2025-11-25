@@ -20,7 +20,7 @@ inline void intakeOut(double power = 1.0) {
 }
 
 bool thing = false;
-autonType autontype = autonType::blue;
+autonType autontype = autonType::skills;
 int autonNumber = 3;
 
 void pre_auton(void)
@@ -150,11 +150,11 @@ void autonomous(void)
     wait(20, msec);
     if (autontype == autonType::skills)
     {
-        Shift(0, 100, 20, 5, 1, -6, 100, 20, 18, 0.8);
+        SetDrive(-100, -100, 0);
+        wait(300, msec);
         matchLoader.open();
-        wait(500, msec);
-        SetDrive(60, 60, 0);
-        wait(2000, msec);
+        SetDrive(100, 100, 0);
+        wait(1500, msec);
         Brake();
         // Shift(-10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
         // LeftSwing(90, 50, 10, 90);
@@ -273,8 +273,8 @@ void autonomous(void)
             wait(2500, msec);
             indexer.close();
             LeftSwing(135, 50, 10, 24);
-            Shift(-2, 100, 20, 5, 1, 40, 100, 20, 24, 0.8);
-            wait(500,msec);
+            Shift(-2, 100, 20, 5, 1, 35, 100, 20, 24, 0.8);
+            wait(1000,msec);
             intakeOut(0.6);
         }
         else if (autonNumber == 4)
