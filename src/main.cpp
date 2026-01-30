@@ -326,15 +326,15 @@ void autonomous(void)
         if (autonNumber == 1)
         {
             intakeIn();
-            Shift(-5, 100, 20, 5, 1, 17.5, 100, 30, 30, 0.8);
+            Shift(-5, 100, 20, 5, 1, 28, 100, 30, 30, 0.8);
 
             LeftSwing(90, 50, 10, 45);
             
             matchLoader.open();
-            Shift(0, 100, 10, 5, 1, 3, 100, 40, 18, 0.8);
+            Shift(0, 100, 10, 5, 1, 6, 100, 40, 18, 0.8);
             SetDrive(100, 100, 0);
             wait(500, msec);
-            Shift(0, 100, 10, 5, 1, -10, 100, 40, 18, 0.8);
+            Shift(0, 100, 10, 5, 1, -20, 100, 40, 18, 0.8);
             matchLoader.close();
             SetDrive(-60, -60, 0);
             wait(1000, msec);
@@ -342,7 +342,7 @@ void autonomous(void)
             wait(1500, msec);
             indexer.close();
             LeftSwing(135, 50, 10, 45);
-            Shift(-7, 100, 20, 5, 1, 17, 100, 40, 18, 0.8);
+            Shift(-7, 100, 20, 5, 1, 34, 100, 40, 18, 0.8);
             intakeOut(0.6);
             // Shift(-10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
             // LeftSwing(90, 50, 10, 90);
@@ -373,15 +373,15 @@ void autonomous(void)
         else if (autonNumber == 2)
         {
             intakeIn();
-            Shift(5, 100, 20, 5, 1, 17.5, 100, 30, 30, 0.8);
+            Shift(5, 100, 20, 5, 1, 28, 100, 30, 30, 0.8);
 
             RightSwing(-90, 50, 10, 45);
             
             matchLoader.open();
-            Shift(0, 100, 10, 5, 1, 3, 100, 40, 18, 0.8);
+            Shift(0, 100, 10, 5, 1, 6, 100, 40, 18, 0.8);
             SetDrive(100, 100, 0);
             wait(500, msec);
-            Shift(0, 100, 10, 5, 1, -10, 100, 40, 18, 0.8);
+            Shift(0, 100, 10, 5, 1, -20, 100, 40, 18, 0.8);
             matchLoader.close();
             SetDrive(-60, -60, 0);
             wait(1000, msec);
@@ -389,9 +389,9 @@ void autonomous(void)
             wait(1500, msec);
             indexer.close();
             RightSwing(-135, 50, 10, 45);
-            Shift(7, 100, 20, 5, 1, 17, 100, 20, 18, 0.8);
+            Shift(7, 100, 20, 5, 1, 34, 100, 20, 18, 0.8);
             Turn(180, 30, 10, 90);
-            Shift(0, 100, 20, 5, 1, -3, 100, 100, 0, 0.8);
+            Shift(0, 100, 20, 5, 1, -6, 100, 100, 0, 0.8);
             indexer.open();
             // Shift(10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
             // RightSwing(-90, 50, 10, 90);
@@ -520,8 +520,8 @@ void autonomous(void)
         else if (autonNumber == 5)
         {
             intakeIn();
-            Shift(6.5, 100, 20, 5, 1, 14, 40, 20, 30, 0.8);
-            Shift(16, 60, 40, 5, 1, -7, 100, 40, 18, 0.8);
+            Shift(6.5, 100, 20, 5, 1, 28, 40, 20, 30, 0.8);
+            Shift(16, 60, 40, 5, 1, -14, 100, 40, 18, 0.8);
 
             LeftSwing(-180, 50, 10, 90);
             SetDrive(-60, -60, 0);
@@ -538,8 +538,8 @@ void autonomous(void)
         else if (autonNumber == 6)
         {
             intakeIn();
-            Shift(-6.5, 100, 20, 5, 1, 14, 40, 20, 30, 0.8);
-            Shift(-14, 60, 40, 5, 1, -7, 100, 40, 18, 0.8);
+            Shift(-6.5, 100, 20, 5, 1, 28, 40, 20, 30, 0.8);
+            Shift(-14, 60, 40, 5, 1, -14, 100, 40, 18, 0.8);
 
             RightSwing(180, 50, 10, 45);
             SetDrive(-60, -60, 0);
@@ -562,10 +562,16 @@ void autonomous(void)
     }
 }
 
+double clamp(double val, double lo, double hi)
+{
+    return val > hi ? hi : val < lo ? lo : val;
+}
+
 void usercontrol(void)
 {
     while (true)
     {
+
         SetDrive(Controller.Axis3.value(), Controller.Axis2.value(), Controller.Axis1.value() + Controller.Axis4.value());
         if (Controller.ButtonR1.pressing())
             intakeOut();

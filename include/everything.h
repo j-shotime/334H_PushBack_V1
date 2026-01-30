@@ -1,6 +1,7 @@
 #pragma once
 #pragma region Vex
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 #include <stdio.h>
