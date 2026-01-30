@@ -1,3 +1,4 @@
+#pragma once
 enum DriveTypes
 {
     TankDrive,
@@ -36,7 +37,7 @@ void SetRight(double power);
 
 void SetStrafe(double power);
 
-void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double StrafeDecelerationDistance, double StrafeAcceleration, double Forward, double MaxForward, double MinForwardSpeed, double ForwardDecelerationDistance, double ForwardAcceleration);
+void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double StrafeDecelerationDistance, double StrafeAcceleration, double Forward, double MaxForward, double MinForwardSpeed, double ForwardDecelerationDistance, double ForwardAcceleration, bool timeout = false);
 
 double GetForwardDistance();
 
@@ -61,3 +62,5 @@ void Brake();
 void Brake(brakeType mode);
 
 double Rotation();
+
+void reset();

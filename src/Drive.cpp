@@ -24,6 +24,12 @@ double strafeRatio;
 // Target heading for turns and corrections
 double targetAngle;
 
+void reset()
+{
+    targetAngle = 0;
+    Inertial.resetRotation();
+}
+
 // Current brake mode for the drive
 brakeType currentBrakeType = brakeType::coast;
 
@@ -271,7 +277,7 @@ double GetStrafeSpeed()
 #pragma region AutonomousMovement
 
 // Main shifting function for moving in both strafe and forward directions
-void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double StrafeDecelerationDistance, double StrafeAcceleration, double Forward, double MaxForward, double MinForwardSpeed, double ForwardDecelerationDistance, double ForwardAcceleration)
+void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double StrafeDecelerationDistance, double StrafeAcceleration, double Forward, double MaxForward, double MinForwardSpeed, double ForwardDecelerationDistance, double ForwardAcceleration, bool timeout)
 {
     // Reset motor positions for accurate distance tracking
     motors[LEFT].resetPosition();
@@ -314,7 +320,10 @@ void Shift(double Strafe, double MaxStrafe, double MinStrafeSpeed, double Strafe
         SetDrive(forwardSpeed-correction, forwardSpeed+correction, strafeSpeed);
         wait(1,msec);
         
-        if(abs(GetStrafeSpeed()+GetForwardSpeed())<MinForwardSpeed+MinStrafeSpeed)time++;
+        if(abs(GetStrafeSpeed())<MinStrafeSpeed && abs(GetForwardSpeed())<MinForwardSpeed)time++;
+        else time = 0;
+        //if(timeout && abs(Inertial.acceleration(axisType::yaxis)) < 0.1) time++;
+        wait(1,msec);
         if(time>500) break;
     }
     SetDrive(0, 0, 0);

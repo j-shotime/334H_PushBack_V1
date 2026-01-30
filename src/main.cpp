@@ -20,12 +20,13 @@ inline void intakeOut(double power = 1.0) {
 }
 
 bool thing = false;
-autonType autontype = autonType::skills;
-int autonNumber = 3;
+autonType autontype = autonType::blue;
+int autonNumber = 2;
+
 
 void pre_auton(void)
 {
-    SetupHDrive(PORT10, 48, 72, 4, 1, 1, 2.75, leftMotors, rightMotors, strafe);
+    SetupHDrive(PORT3, 48, 72, 4, 1, 1, 2.75, leftMotors, rightMotors, strafe);
     Brain.Screen.render(true, true);
     // Prevent main from exiting with an infinite loop.
     while (true)
@@ -144,18 +145,142 @@ void pre_auton(void)
     }
 }
 
+void descoreLongGoal()
+{
+    Shift(0, 80, 20, 5, 1, 5, 100, 20, 18, 0.8);
+    Shift(-9, 80, 20, 5, 1, 0, 100, 20, 18, 0.8);
+    Shift(0, 20, 20, 5, 1, -10, 100, 70, 18, 0.8);
+    SetDrive(0,-100, 0);
+}
+
 void autonomous(void)
 {
     Brake(brakeType::hold);
     wait(20, msec);
     if (autontype == autonType::skills)
     {
-        SetDrive(-100, -100, 0);
-        wait(300, msec);
+        intakeIn();
+        Shift(-23, 100, 20, 5, 1, -20, 60, 30, 30, 0.8);
+        SetDrive(-60,-60,0);
+        indexer.open();
+        wait(1000, msec);
+        indexer.close();
         matchLoader.open();
-        SetDrive(100, 100, 0);
-        wait(1500, msec);
-        Brake();
+        Shift(0, 80, 20, 5, 1, 13, 100, 40, 18, 0.8);
+        SetDrive(100,100,0);
+        wait(500, msec);
+        SetDrive(-5,-5,0);
+
+        
+
+        wait(2000, msec);
+        // add match load here
+        Shift(0, 100, 10, 5, 1, -10, 100, 40, 18, 0.8);
+        Shift(-9, 100, 10, 5, 1, 0, 100, 20, 18, 0.8);
+        descore.open();
+        Shift(0, 100, 20, 5, 1, -43, 70, 45, 18, 0.8);
+        matchLoader.close();
+        LeftSwing(-180, 50, 10, 45);
+        Shift(-3, 100, 10, 5, 1, 0, 100, 20, 18, 0.8);
+        SetDrive(-60,-60,0);
+        wait(1000, msec);
+        indexer.open();
+        wait(3000, msec);
+        indexer.close();
+        matchLoader.open();
+        Shift(0, 80, 20, 5, 1, 13, 100, 40, 18, 0.8);
+        SetDrive(100,100,0);
+        wait(500, msec);
+        SetDrive(-5,-5,0);
+        wait(2000, msec);
+        Shift(0, 100, 10, 5, 1, -10, 100, 40, 18, 0.8);
+        SetDrive(-60,-60,0);
+        wait(2000, msec);
+        indexer.open();
+        wait(3000, msec);
+        indexer.close();
+
+        RightSwing(-90, 50, 10, 45);
+
+        Shift(5, 80, 20, 5, 1, 60, 100, 20, 18, 0.8);
+        Turn(90, 30, 5, 45);
+        SetDrive(-60,-60,0);
+        wait(2000, msec);
+        //loop
+        Shift(0, 80, 20, 5, 1, 13, 100, 40, 18, 0.8);
+        SetDrive(100,100,0);
+        wait(500, msec);
+        SetDrive(-5,-5,0);
+        wait(2000, msec);
+        // add match load here
+        Shift(0, 100, 10, 5, 1, -10, 100, 40, 18, 0.8);
+        Shift(-9, 100, 10, 5, 1, 0, 100, 20, 18, 0.8);
+        descore.open();
+        Shift(0, 100, 20, 5, 1, -43, 70, 45, 18, 0.8);
+        matchLoader.close();
+        LeftSwing(-180, 50, 10, 45);
+        Shift(-3, 100, 10, 5, 1, 0, 100, 20, 18, 0.8);
+        SetDrive(-60,-60,0);
+        wait(1000, msec);
+        indexer.open();
+        wait(3000, msec);
+        indexer.close();
+        matchLoader.open();
+        Shift(0, 80, 20, 5, 1, 13, 100, 40, 18, 0.8);
+        SetDrive(100,100,0);
+        wait(500, msec);
+        SetDrive(-5,-5,0);
+        wait(2000, msec);
+        Shift(0, 100, 10, 5, 1, -10, 100, 40, 18, 0.8);
+        SetDrive(-60,-60,0);
+        wait(2000, msec);
+        indexer.open();
+        wait(3000, msec);
+        indexer.close();
+        //loop
+
+        RightSwing(-90, 50, 10, 45);
+        Shift(26, 80, 20, 5, 1, 10, 100, 20, 18, 0.8);
+        SetDrive(100,100,60);
+        matchLoader.open();
+        wait(1000, msec);
+        matchLoader.close();
+
+
+
+        
+        // SetDrive(-60,-60,0);
+
+
+
+        // Shift(12, 60, 40, 5, 1, -7, 100, 20, 18, 0.8);
+        // LeftSwing(-180, 50, 10, 45);
+        // SetDrive(-60, -60, 0);
+        // wait(500, msec);
+        // indexer.open();
+        // wait(1500, msec);
+        // indexer.close();
+
+        // matchLoader.open();
+        // Shift(0, 100, 10, 5, 1, 10, 100, 0, 18, 0.8);
+        // SetDrive(100, 100, 0);
+        // wait(5000, msec);
+        // SetDrive(-60, -60, 0);
+        // matchLoader.close();
+        // wait(1000, msec);
+        // indexer.open();
+        // wait(1500, msec);
+
+        // LeftSwing(23, 50, 10, 45);
+        // Shift(0, 100, 20, 5, 1, 24, 100, 20, 18, 0.8);
+        // RightSwing(90-23, 50, 10, 45);
+        // SetDrive(0, 0, -100);
+        // matchLoader.open();
+        // wait(3000, msec);
+        // SetDrive(100, 100, 0);
+        // wait(1500, msec);
+        // SetDrive(0,0,0);
+
         // Shift(-10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
         // LeftSwing(90, 50, 10, 90);
         // intakeIn();
@@ -200,134 +325,233 @@ void autonomous(void)
     {
         if (autonNumber == 1)
         {
-            Shift(-10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
-            LeftSwing(90, 50, 10, 90);
+            intakeIn();
+            Shift(-5, 100, 20, 5, 1, 17.5, 100, 30, 30, 0.8);
+
+            LeftSwing(90, 50, 10, 45);
+            
             matchLoader.open();
+            Shift(0, 100, 10, 5, 1, 3, 100, 40, 18, 0.8);
+            SetDrive(100, 100, 0);
             wait(500, msec);
-            SetDrive(60, 60, 0);
-            wait(1000, msec);
-            Shift(-1, 100, 20, 5, 1, -24, 100, 20, 18, 0.8);
-            SetDrive(-50, -50, -4);
-            wait(800, msec);
-            intakeIn();
-            indexer.open();
-            wait(2500, msec);
-            indexer.close();
+            Shift(0, 100, 10, 5, 1, -10, 100, 40, 18, 0.8);
             matchLoader.close();
-            LeftSwing(135, 50, 10, 24);
-            Shift(-2, 100, 20, 5, 1, 42, 100, 20, 24, 0.8);
-            intakeOut(0.6);
+            SetDrive(-60, -60, 0);
             wait(1000, msec);
-            intakeStop();
-            Shift(0, 100, 20, 5, 1, -10, 100, 20, 24, 0.8);
-            Turn(-45, 50, 10, 24);
-            intakeIn();
-            Shift(0, 100, 20, 5, 1, 48, 100, 20, 24, 0.8);
-            Turn(-45, 50, 10, 24);
             indexer.open();
+            wait(1500, msec);
+            indexer.close();
+            LeftSwing(135, 50, 10, 45);
+            Shift(-7, 100, 20, 5, 1, 17, 100, 40, 18, 0.8);
+            intakeOut(0.6);
+            // Shift(-10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
+            // LeftSwing(90, 50, 10, 90);
+            // matchLoader.open();
+            // wait(500, msec);
+            // SetDrive(60, 60, 0);
+            // wait(1000, msec);
+            // Shift(-1, 100, 20, 5, 1, -24, 100, 20, 18, 0.8);
+            // SetDrive(-50, -50, -4);
+            // wait(800, msec);
+            // intakeIn();
+            // indexer.open();
+            // wait(2500, msec);
+            // indexer.close();
+            // matchLoader.close();
+            // LeftSwing(135, 50, 10, 24);
+            // Shift(-2, 100, 20, 5, 1, 42, 100, 20, 24, 0.8);
+            // intakeOut(0.6);
+            // wait(1000, msec);
+            // intakeStop();
+            // Shift(0, 100, 20, 5, 1, -10, 100, 20, 24, 0.8);
+            // Turn(-45, 50, 10, 24);
+            // intakeIn();
+            // Shift(0, 100, 20, 5, 1, 48, 100, 20, 24, 0.8);
+            // Turn(-45, 50, 10, 24);
+            // indexer.open();
         }
         else if (autonNumber == 2)
         {
-            Shift(10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
-            RightSwing(-90, 50, 10, 90);
-            matchLoader.open();
-            wait(500, msec);
-            SetDrive(60, 60, 0);
-            wait(1000, msec);
-            Shift(1, 100, 20, 5, 1, -24, 100, 20, 18, 0.8);
             intakeIn();
+            Shift(5, 100, 20, 5, 1, 17.5, 100, 30, 30, 0.8);
+
+            RightSwing(-90, 50, 10, 45);
+            
+            matchLoader.open();
+            Shift(0, 100, 10, 5, 1, 3, 100, 40, 18, 0.8);
+            SetDrive(100, 100, 0);
+            wait(500, msec);
+            Shift(0, 100, 10, 5, 1, -10, 100, 40, 18, 0.8);
             matchLoader.close();
-            SetDrive(-50, -50, 4);
-            wait(800, msec);
-            indexer.open();
-            wait(2500, msec);
-            indexer.close();
-            RightSwing(-135, 50, 10, 24);
-            Shift(2, 100, 15, 5, 1, 42, 100, 20, 24, 0.8);
-            Turn(180, 50, 10, 24);
-            indexer.open();
+            SetDrive(-60, -60, 0);
             wait(1000, msec);
-            Turn(-135, 50, 10, 24);
+            indexer.open();
+            wait(1500, msec);
             indexer.close();
-            Shift(0, 100, 20, 5, 1, 48, 100, 20, 24, 0.8);
-            Turn(-135, 50, 10, 24);
-            Shift(0, 100, 20, 5, 1, 10, 100, 20, 24, 0.8);
-            intakeOut(0.6);
+            RightSwing(-135, 50, 10, 45);
+            Shift(7, 100, 20, 5, 1, 17, 100, 20, 18, 0.8);
+            Turn(180, 30, 10, 90);
+            Shift(0, 100, 20, 5, 1, -3, 100, 100, 0, 0.8);
+            indexer.open();
+            // Shift(10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
+            // RightSwing(-90, 50, 10, 90);
+            // matchLoader.open();
+            // wait(500, msec);
+            // SetDrive(60, 60, 0);
+            // wait(1000, msec);
+            // Shift(1, 100, 20, 5, 1, -24, 100, 20, 18, 0.8);
+            // intakeIn();
+            // matchLoader.close();
+            // SetDrive(-50, -50, 4);
+            // wait(800, msec);
+            // indexer.open();
+            // wait(2500, msec);
+            // indexer.close();
+            // RightSwing(-135, 50, 10, 24);
+            // Shift(2, 100, 15, 5, 1, 42, 100, 20, 24, 0.8);
+            // Turn(180, 50, 10, 24);
+            // indexer.open();
+            // wait(1000, msec);
+            // Turn(-135, 50, 10, 24);
+            // indexer.close();
+            // Shift(0, 100, 20, 5, 1, 48, 100, 20, 24, 0.8);
+            // Turn(-135, 50, 10, 24);
+            // Shift(0, 100, 20, 5, 1, 10, 100, 20, 24, 0.8);
+            // intakeOut(0.6);
         }
         else if (autonNumber == 3)
         {
-            Shift(-10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
-            LeftSwing(90, 50, 10, 90);
-            matchLoader.open();
-            wait(500, msec);
-            SetDrive(60, 60, 0);
-            wait(1000, msec);
             intakeIn();
-            wait(100, msec);
-            intakeIn();
-            Shift(-1, 100, 20, 5, 1, -24, 100, 20, 18, 0.8);
+            Shift(7, 100, 20, 5, 1, 14, 40, 30, 30, 0.8);
+            
+            Turn(45, 50, 10, 45);
+            Shift(-1, 100, 20, 5, 1, 15, 100, 20, 18, 0.8, true);
+            
+
+
+            //matchLoader.open();
+
+
+
+            Shift(7, 100, 20, 5, 1, -12, 100, 30, 18, 0.8);
+
+            LeftSwing(-45, 50, 20, 45);
+            Shift(6, 100, 20, 5, 1, 0, 100, 20, 18, 0.8);
             matchLoader.close();
-            SetDrive(-50, -50, -4);
-            wait(800, msec);
+            LeftSwing(-180, 50, 20, 45);
+            SetDrive(-60, -60, 0);
+
+            wait(500, msec);
             indexer.open();
-            wait(2500, msec);
-            indexer.close();
-            LeftSwing(135, 50, 10, 24);
-            Shift(-2, 100, 20, 5, 1, 35, 100, 20, 24, 0.8);
-            wait(1000,msec);
-            intakeOut(0.6);
+            reset();
+            wait(1500, msec);
+            indexer.close(); 
+
+            matchLoader.open();
+            Shift(0, 100, 10, 5, 1, 14, 100, 70, 18, 0.8);
+            SetDrive(80, 80, 0);
+            wait(1000, msec);
+            SetDrive(-100, -100, 0);
+            wait(500, msec);
+            matchLoader.close();
+            wait(1000, msec);
+            indexer.open();
+            wait(1500, msec);
+
+            // Shift(-10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
+            // LeftSwing(90, 50, 10, 90);
+            // matchLoader.open();
+            // wait(500, msec);
+            // SetDrive(60, 60, 0);
+            // wait(1000, msec);
+            // intakeIn();
+            // wait(100, msec);
+            // intakeIn();
+            // Shift(-1, 100, 20, 5, 1, -24, 100, 20, 18, 0.8);
+            // matchLoader.close();
+            // SetDrive(-50, -50, -4);
+            // wait(800, msec);
+            // indexer.open();
+            // wait(2500, msec);
+            // indexer.close();
+            // LeftSwing(135, 50, 10, 24);
+            // Shift(-2, 100, 20, 5, 1, 35, 100, 20, 24, 0.8);
+            // wait(1000,msec);
+            // intakeOut(0.6);
         }
         else if (autonNumber == 4)
         {
-            Shift(10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
-            RightSwing(-90, 50, 10, 90);
-            matchLoader.open();
-            wait(500, msec);
-            SetDrive(60, 60, 0);
-            wait(1000, msec);
             intakeIn();
-            Shift(1, 100, 20, 5, 1, -24, 100, 20, 18, 0.8);
+            Shift(-7, 100, 20, 5, 1, 14, 40, 30, 30, 0.8);
+
+            Turn(-45, 50, 10, 45);
+            Shift(1, 100, 20, 5, 1, 15, 100, 20, 18, 0.8, true);
+
+
+
+            //matchLoader.open();
+
+
+
+            Shift(-7, 100, 20, 5, 1, -12, 100, 30, 18, 0.8);
+
+            RightSwing(45, 50, 20, 45);
+            Shift(-6, 100, 20, 5, 1, 0, 100, 20, 18, 0.8);
             matchLoader.close();
-            SetDrive(-50, -50, 4);
-            wait(800, msec);
+            RightSwing(180, 50, 20, 45);
+
+            SetDrive(-60, -60, 0);
+            wait(500, msec);
             indexer.open();
-            wait(2500, msec);
+            reset();
+            wait(1500, msec);
             indexer.close();
-            RightSwing(-135, 50, 10, 24);
-            Shift(4, 100, 15, 5, 1, 34, 100, 20, 24, 0.8);
-            Turn(180, 30, 10, 90);
-            Shift(0, 100, 15, 5, 1, -2, 100, 20, 24, 0.8);
+
+            matchLoader.open();
+            Shift(0, 100, 10, 5, 1, 14, 100, 70, 18, 0.8);
+            SetDrive(80, 80, 0);
+            wait(1000, msec);
+            SetDrive(-100, -100, 0);
+            matchLoader.close();
+            wait(1000, msec);
             indexer.open();
-            wait(2000,msec);
-            SetDrive(-30,-30);
+            wait(1500, msec);
         }
         else if (autonNumber == 5)
         {
-            Shift(-10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
-            LeftSwing(90, 50, 10, 90);
-            matchLoader.open();
-            wait(500, msec);
-            SetDrive(60, 60, 0);
-            wait(1000, msec);
-            Shift(-1, 100, 20, 5, 1, -24, 100, 20, 18, 0.8);
-            SetDrive(-50, -50, -4);
-            wait(800, msec);
             intakeIn();
+            Shift(6.5, 100, 20, 5, 1, 14, 40, 20, 30, 0.8);
+            Shift(16, 60, 40, 5, 1, -7, 100, 40, 18, 0.8);
+
+            LeftSwing(-180, 50, 10, 90);
+            SetDrive(-60, -60, 0);
+
+            wait(500, msec);
             indexer.open();
+            wait(1000, msec);
+            reset();
+            wait(500, msec);
+            indexer.close(); 
+
+            descoreLongGoal();
         }
         else if (autonNumber == 6)
         {
-            Shift(10, 100, 20, 5, 1, 26, 100, 20, 18, 0.8);
-            RightSwing(-90, 50, 10, 90);
-            matchLoader.open();
-            wait(500, msec);
-            SetDrive(60, 60, 0);
-            wait(1000, msec);
-            Shift(1, 100, 20, 5, 1, -24, 100, 20, 18, 0.8);
-            SetDrive(-50, -50, 4);
-            wait(800, msec);
             intakeIn();
+            Shift(-6.5, 100, 20, 5, 1, 14, 40, 20, 30, 0.8);
+            Shift(-14, 60, 40, 5, 1, -7, 100, 40, 18, 0.8);
+
+            RightSwing(180, 50, 10, 45);
+            SetDrive(-60, -60, 0);
+
+            wait(500, msec);
             indexer.open();
+            wait(1000, msec);
+            reset();
+            wait(500, msec);
+            indexer.close(); 
+
+            descoreLongGoal();
         }
         else if (autonNumber == 7)
         {
@@ -354,9 +578,13 @@ void usercontrol(void)
             descore.set(!descore.value());
             if(thing) descore.set(descore.value());
         }
-        if(Controller.ButtonDown.PRESSED)
+        if(Controller.ButtonDown.pressing())
         {
-            matchLoader.set(!matchLoader.value());
+            matchLoader.open();
+        }
+        else
+        {
+            matchLoader.close();    
         }
         if (Controller.ButtonL2.pressing())
             indexer.open();
